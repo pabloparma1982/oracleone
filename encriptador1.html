@@ -1,0 +1,150 @@
+<html>
+    <head>
+        <meta charset ="UTF-8">
+        <style>
+            body {
+                min-height: 100vh;
+                max-width: 400px;
+                background-color: papayawhip; 
+                margin: 0 auto;
+                font-family: 'Arial';
+            }
+            h1 {
+                margin-top: 50px;
+            }
+            #rectangulo1A {
+                position: absolute;
+                width: 500px;
+                height: 250px;
+                left: 120px;
+                top: 150px;
+            }
+            #rectangulo2A {
+                position: absolute;
+                width: 500px;
+                height: 250px;
+                left: 670px;
+                top: 150px;
+            }
+            #rectangulo1B {
+                width: 250px;
+                margin: 0 auto;
+            }
+            #rectangulo2B {
+                width: 100px;
+                margin: 0 auto;
+            }
+            .texto {
+                width: 100%;
+                height: 100%;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 24px;
+                line-height: 150%;
+                background-color: papayawhip;
+                border-radius: 20px;
+            }
+            .botones {
+                width: 100px;
+                height: 50px;
+                border: 1px solid black;
+                border-radius: 20px;
+                background-color: papayawhip;
+                margin-top: 20px;
+            }
+            #footer {
+                margin-top: 450px;
+                margin-left: 50px;
+            }
+        </style> 
+    </head>
+    <body>
+        <script>
+            let regEx = /[a-z ,¡¿?!.]/;
+
+            // Encriptar texto
+            function encriptar() {
+                let textoIn = document.getElementById('textoInput').value;
+                let textoOut = "";
+                for (let i = 0; i < textoIn.length; i++) {
+                    if (!regEx.test(textoIn[i])) {
+                        alert("El texto introducido solo debe contener letras minúsculas. Intenta nuevamente.");
+                        location.reload();
+                        document.getElementById("textoInput").focus();
+                        break;
+                    } else {
+                        switch (textoIn[i]) {
+                            case 'a':
+                                textoOut += 'ai';
+                                break;
+                            case 'e':
+                                textoOut += 'enter';
+                                break;
+                            case 'i':
+                                textoOut += 'imes';
+                                break;
+                            case 'o':
+                                textoOut += 'ober';
+                                break;
+                            case 'u':
+                                textoOut += 'ufat';
+                                break;
+                            default:
+                                textoOut += textoIn[i];
+                        }
+                    }
+                }
+                document.getElementById("textoOutput").innerHTML = textoOut;
+            }
+
+            // Desencriptar texto
+            function desencriptar() {
+                let texto = document.getElementById('textoInput').value;
+                for (let i = 0; i < texto.length; i++) {
+                    if (!regEx.test(texto[i])) {
+                        alert("El texto introducido no debe contener letras mayúsculas ni caracteres especiales. Intenta nuevamente.");
+                        location.reload();
+                        document.getElementById("textoInput").focus();
+                        break;
+                    }
+                }
+                texto = texto.replaceAll('ai', 'a');
+                texto = texto.replaceAll('enter', 'e');
+                texto = texto.replaceAll('imes', 'i');
+                texto = texto.replaceAll('ober', 'o');
+                texto = texto.replaceAll('ufat', 'u');
+                document.getElementById("textoOutput").innerHTML = texto;
+            }
+
+            // Copiar texto
+            function copiar() {
+            var copiaTexto = document.getElementById("textoOutput");
+            copiaTexto.select();
+            navigator.clipboard.writeText(copiaTexto.value);
+            alert("Texto copiado: " + copiaTexto.value);
+            document.getElementById("textoOutput").innerHTML = "Aquí verás el resultado...";
+            document.getElementById("textoInput").value = "";
+            document.getElementById("textoInput").focus();
+            }
+        </script>
+        <h1>Trambolik Encryptator</h1>
+        <div id = "contenedor">
+            <div id = "rectangulo1A">
+                <textarea class = "texto" id = "textoInput" placeholder = "Introduce el texto..."></textarea>
+                <div id = "rectangulo1B">
+                    <input class = "botones" type = "button" value ="Encriptar" onclick = "encriptar()">
+                    <input class = "botones" type = "button" value ="Desencriptar" onclick = "desencriptar()">
+                </div>   
+            </div>
+            <div id = "rectangulo2A">
+                <textarea readonly class ="texto" id = "textoOutput">Aquí verás el resultado...</textarea>
+                <div id = "rectangulo2B">
+                  <input class = "botones" type = "button" value ="Copiar" onclick = "copiar()">  
+                </div>
+            </div>
+        </div>
+        <div id = "footer">
+            <footer>Creado por <a href = "https://github.com/pabloparma1982">Pablo Parma</a></footer>
+        </div>
+    </body>
+</html>
